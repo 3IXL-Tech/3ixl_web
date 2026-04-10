@@ -2,219 +2,196 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [nameError, setNameError] = useState("");
+
+  // ================= HANDLE INPUT =================
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    const sanitizedValue = value.trim();
+
+    if (name === "name") {
+      if (/\d/.test(sanitizedValue)) {
+        setNameError("❌ Full Name cannot contain numbers");
+        return;
+      } else {
+        setNameError("");
+      }
+    }
+
+    setFormData({ ...formData, [name]: sanitizedValue });
+  };
+
+  // ================= HANDLE SUBMIT =================
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponseMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      await response.json();
+
+      if (response.ok) {
+        setResponseMessage("✅ Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setResponseMessage("❌ Failed to send message.");
+      }
+    } catch (error) {
+      console.error(error);
+      setResponseMessage("❌ Something went wrong.");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="relative min-h-screen pt-28 text-white overflow-hidden">
 
-      {/* ================= BACKGROUND ================= */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
-      
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+
       <div className="absolute inset-0 -z-10 opacity-20">
-        <Image
-          src="/images/bg.png"
-          alt="bg"
-          fill
-          className="object-cover"
-        />
+        <Image src="/images/bg.png" alt="bg" fill className="object-cover" />
       </div>
 
-      {/* Glow Effects */}
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-green-500 opacity-20 blur-[150px] rounded-full"></div>
-
-      {/* ================= HEADER ================= */}
+      {/* HEADER */}
       <section className="relative z-10 container mx-auto px-6 md:px-16 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
+        <motion.div initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
             Contact <span className="text-teal-400">Us</span>
           </h1>
           <p className="text-gray-400 text-lg">
-            We'd love to hear from you! Reach out to us anytime.
+            We&apos;d love to hear from you!
           </p>
         </motion.div>
       </section>
 
-      {/* ================= CONTACT SECTION ================= */}
+      {/* CONTACT */}
       <section className="relative z-10 container mx-auto px-6 md:px-16 pb-24">
-
-        {/* 3-column layout on desktop */}
         <div className="grid md:grid-cols-3 gap-14">
 
-          {/* ================= LEFT FRAME - BIG CONTACT FORM ================= */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="md:col-span-2 bg-white/5 backdrop-blur-xl border border-white/10 
-            p-10 rounded-3xl
-            hover:border-teal-400 hover:shadow-[0_0_40px_rgba(45,212,191,0.3)]
-            transition-all duration-500"
-          >
-            <h2 className="text-2xl font-bold mb-8 text-teal-400">
+          {/* FORM */}
+          <motion.div className="md:col-span-2 bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-3xl">
+            <h2 className="text-2xl font-bold mb-6 text-teal-400">
               Send Us a Message
             </h2>
 
-            <form className="space-y-6">
+            {responseMessage && (
+              <p className="mb-4 text-center text-sm text-green-400">
+                {responseMessage}
+              </p>
+            )}
 
-              {/* Full Name */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+
+              {/* NAME */}
               <div>
-                <label className="block mb-2 text-sm text-gray-300">
+                <label htmlFor="name" className="block mb-2 text-sm text-gray-300">
                   Full Name
                 </label>
                 <input
+                  id="name"
+                  name="name"
                   type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
                   placeholder="Enter your full name"
-                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10
-                  focus:outline-none focus:border-teal-400
-                  transition-all duration-300"
+                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400"
                 />
+                {nameError && (
+                  <p className="text-red-400 text-sm mt-1">{nameError}</p>
+                )}
               </div>
 
-              {/* Email */}
+              {/* EMAIL */}
               <div>
-                <label className="block mb-2 text-sm text-gray-300">
+                <label htmlFor="email" className="block mb-2 text-sm text-gray-300">
                   Email
                 </label>
                 <input
+                  id="email"
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                   placeholder="Enter your email"
-                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10
-                  focus:outline-none focus:border-teal-400
-                  transition-all duration-300"
+                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400"
                 />
               </div>
 
-              {/* Message */}
+              {/* MESSAGE */}
               <div>
-                <label className="block mb-2 text-sm text-gray-300">
+                <label htmlFor="message" className="block mb-2 text-sm text-gray-300">
                   Message
                 </label>
                 <textarea
+                  id="message"
+                  name="message"
                   rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   placeholder="Write your message..."
-                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10
-                  focus:outline-none focus:border-teal-400
-                  transition-all duration-300 resize-none"
+                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400 resize-none"
                 />
               </div>
 
+              {/* BUTTON */}
               <button
                 type="submit"
-                className="w-full py-4 rounded-full font-semibold
-                border-2 border-teal-400 text-white
-                bg-transparent
-                hover:bg-teal-400 hover:text-black
-                transition-all duration-300 active:scale-95"
+                disabled={loading}
+                className="w-full py-4 rounded-full font-semibold border-2 border-teal-400 hover:bg-teal-400 hover:text-black transition"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
 
             </form>
           </motion.div>
 
-          {/* ================= RIGHT FRAME - SMALL CONTACT INFO ================= */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 
-            p-8 rounded-3xl
-            hover:border-teal-400 hover:shadow-[0_0_30px_rgba(45,212,191,0.3)]
-            transition-all duration-500 h-fit"
-          >
+          {/* INFO */}
+          <motion.div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl h-fit">
             <h2 className="text-xl font-bold mb-8 text-teal-400">
-              Our Contact Information
+              Contact Info
             </h2>
 
-            <div className="space-y-8">
-
-              {/* Phone */}
+            <div className="space-y-6">
               <div className="flex items-center space-x-4">
-                <Image
-                  src="/images/phone.png"
-                  alt="phone"
-                  width={26}
-                  height={26}
-                />
-                <span className="text-gray-300 text-base">
-                  +233 506506443
-                </span>
+                <Image src="/images/phone.png" alt="phone" width={26} height={26} />
+                <span className="text-gray-300">+233 506506443</span>
               </div>
 
-              {/* Email */}
               <div className="flex items-center space-x-4">
-                <Image
-                  src="/images/mail.png"
-                  alt="mail"
-                  width={26}
-                  height={26}
-                />
-                <span className="text-gray-300 text-base">
-                  contact@3ixl.com
-                </span>
+                <Image src="/images/mail.png" alt="mail" width={26} height={26} />
+                <span className="text-gray-300">contact@3ixl.com</span>
               </div>
-
             </div>
           </motion.div>
 
         </div>
       </section>
-
-      {/* ================= FOLLOW US SECTION ================= */}
-      <section className="relative z-10 container mx-auto px-6 md:px-16 pb-32">
-
-        <h2 className="text-4xl font-bold mb-10">
-          Follow <span className="text-teal-400">Us</span>
-        </h2>
-
-        <div className="flex space-x-8">
-
-          <a
-            href="https://www.linkedin.com/company/3ixledutech/?viewAsMember=true"
-            target="_blank"
-            className="hover:scale-110 transition duration-300"
-          >
-            <Image
-              src="/images/linkedin.png"
-              alt="LinkedIn"
-              width={40}
-              height={40}
-            />
-          </a>
-
-          <a
-            href="https://instagram.com/_3ixledutech"
-            target="_blank"
-            className="hover:scale-110 transition duration-300"
-          >
-            <Image
-              src="/images/instagram.png"
-              alt="Instagram"
-              width={40}
-              height={40}
-            />
-          </a>
-
-          <a
-            href="https://x.com"
-            target="_blank"
-            className="hover:scale-110 transition duration-300"
-          >
-            <Image
-              src="/images/X.png"
-              alt="X"
-              width={40}
-              height={40}
-            />
-          </a>
-
-        </div>
-
-      </section>
-
     </div>
   );
 }

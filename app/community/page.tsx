@@ -9,7 +9,7 @@ export default function CommunityPage() {
     <div className="relative min-h-screen pt-28 px-6 md:px-16 text-white overflow-hidden">
 
       {/* Background */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
       
       <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
         <Image
@@ -21,10 +21,10 @@ export default function CommunityPage() {
       </div>
 
       {/* Background Glow */}
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] 
+      <div className="absolute -left-40 top-40 w-125 h-125 
       bg-teal-500 opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
 
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] 
+      <div className="absolute bottom-0 right-0 w-100 h-100 
       bg-green-500 opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
 
       {/* HERO SECTION */}

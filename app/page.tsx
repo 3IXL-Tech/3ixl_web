@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const words = ["Tech", "AI", "Innovation"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -36,7 +37,7 @@ export default function Home() {
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, currentWordIndex]);
+  }, [displayedText, isDeleting, currentWordIndex, words]);
 
   // 7-second image slider
   useEffect(() => {
@@ -45,13 +46,13 @@ export default function Home() {
     }, 7000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
     <div className="relative min-h-screen pt-28 text-white overflow-hidden">
 
       {/* Background */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
 
       <div className="absolute inset-0 -z-10 opacity-20">
         <Image
@@ -132,8 +133,8 @@ export default function Home() {
                     <Image
                       src={images[currentImage]}
                       alt="Slide Image"
-                      width={420}
-                      height={520}
+                      width={320}
+                      height={420}
                       priority
                       className="object-contain drop-shadow-[0_0_35px_rgba(45,212,191,0.4)]"
                     />
