@@ -48,7 +48,7 @@ export default function DigitalGrowth() {
     <div className="relative min-h-screen pt-28 text-white overflow-hidden">
 
       {/* Background */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
       <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
         <Image
           src="/images/bg.png"
@@ -59,8 +59,8 @@ export default function DigitalGrowth() {
       </div>
 
       {/* Glow Effects */}
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] bg-teal-500 opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-green-500 opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute -left-40 top-40 w-125 h-125 bg-teal-500 opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-0 right-0 w-100 h-100 bg-green-500 opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
 
       {/* ================= SERVICES GRID ================= */}
       <section className="relative z-10 container mx-auto px-6 md:px-16 py-24">
@@ -75,7 +75,7 @@ export default function DigitalGrowth() {
               whileHover={{ y: -8, scale: 1.03 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
               className="relative bg-white/5 backdrop-blur-xl border border-white/10 
-                         rounded-3xl p-10 pt-20 min-h-[260px]
+                         rounded-3xl p-10 pt-20 min-h-65
                          hover:border-teal-400 
                          hover:shadow-[0_0_40px_rgba(45,212,191,0.25)]
                          transition-all duration-300"

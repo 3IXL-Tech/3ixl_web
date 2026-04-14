@@ -31,7 +31,7 @@ export default function CareerFocused() {
     <div className="relative min-h-screen pt-28 text-white overflow-hidden px-6 md:px-16">
 
       {/* Background Gradient */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
 
       {/* Background Image */}
       <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
@@ -43,7 +43,7 @@ export default function CareerFocused() {
         />
       </div>
 
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
+      <div className="absolute -left-40 top-40 w-125 h-125 bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
 
       <div className="grid md:grid-cols-2 gap-16 items-center">
 

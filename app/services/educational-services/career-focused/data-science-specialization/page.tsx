@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { useState } from "react";
+import { useState } from "react"; // Removed unused Link import
 
 export default function DataScienceSpecialization() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -46,19 +45,17 @@ export default function DataScienceSpecialization() {
   ];
 
   return (
-    <div className="relative min-h-screen pt-28 text-white bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e] px-6 md:px-16 overflow-hidden">
-
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
+    <div className="relative min-h-screen pt-28 text-white bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e] px-6 md:px-16 overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute -left-40 top-40 w-125 h-125 bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
 
       <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">
         DS & ML Engineering Specialization
       </h1>
 
       <div className="grid md:grid-cols-2 gap-16">
-
         {/* LEFT DESCRIPTION */}
         <div className="space-y-6">
-          
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl
@@ -104,7 +101,6 @@ export default function DataScienceSpecialization() {
               real production environments.
             </p>
           </motion.div>
-
         </div>
 
         {/* RIGHT SINGLE FRAME DROPDOWN */}
@@ -117,7 +113,6 @@ export default function DataScienceSpecialization() {
         >
           {topics.map((item, index) => (
             <div key={index} className="border-b border-white/10 last:border-none">
-
               {/* HEADER ROW */}
               <div
                 className="flex justify-between items-center p-6 cursor-pointer"
@@ -126,7 +121,6 @@ export default function DataScienceSpecialization() {
                 <h3 className="text-lg font-semibold">
                   {item.title}
                 </h3>
-
                 <motion.span
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -157,7 +151,6 @@ export default function DataScienceSpecialization() {
                   </motion.div>
                 )}
               </AnimatePresence>
-
             </div>
           ))}
         </motion.div>
@@ -170,7 +163,6 @@ export default function DataScienceSpecialization() {
         </h2>
 
         <div className="grid md:grid-cols-2 gap-10">
-
           {/* PLAN 1 */}
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -181,7 +173,6 @@ export default function DataScienceSpecialization() {
             <h3 className="text-2xl font-bold text-teal-400 mb-6">
               Pay-as-You-Learn
             </h3>
-
             <ul className="space-y-4 text-gray-300 mb-8">
               <li>• Pay 50% of the full course fee today</li>
               <li>• Unlocks all materials for the first 3 months</li>
@@ -204,20 +195,17 @@ export default function DataScienceSpecialization() {
             <h3 className="text-2xl font-bold text-teal-400 mb-6">
               Full Access
             </h3>
-
             <ul className="space-y-4 text-gray-300 mb-8">
               <li>• Pay the full course fee upfront</li>
               <li>• Unlock all 6 months immediately</li>
               <li>• Learn at your own speed</li>
             </ul>
-
             <button className="px-6 py-3 rounded-full border border-teal-400 
               text-white hover:bg-teal-400 hover:text-black
               transition duration-300">
               Enroll Now
             </button>
           </motion.div>
-
         </div>
       </div>
     </div>

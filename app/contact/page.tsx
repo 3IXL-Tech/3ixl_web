@@ -8,6 +8,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "", // Added to match backend logic
     message: "",
   });
 
@@ -20,10 +21,11 @@ export default function Contact() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    const sanitizedValue = value.trim();
-
+    
+    // We remove .trim() here so users can type spaces between names
+    // but we will trim on submit if needed.
     if (name === "name") {
-      if (/\d/.test(sanitizedValue)) {
+      if (/\d/.test(value)) {
         setNameError("❌ Full Name cannot contain numbers");
         return;
       } else {
@@ -31,7 +33,7 @@ export default function Contact() {
       }
     }
 
-    setFormData({ ...formData, [name]: sanitizedValue });
+    setFormData({ ...formData, [name]: value });
   };
 
   // ================= HANDLE SUBMIT =================
@@ -49,20 +51,20 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      await response.json();
+      const data = await response.json();
 
       if (response.ok) {
         setResponseMessage("✅ Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
-        setResponseMessage("❌ Failed to send message.");
+        setResponseMessage(`❌ ${data.error || "Failed to send message."}`);
       }
     } catch (error) {
       console.error(error);
       setResponseMessage("❌ Something went wrong.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -98,7 +100,7 @@ export default function Contact() {
             </h2>
 
             {responseMessage && (
-              <p className="mb-4 text-center text-sm text-green-400">
+              <p className={`mb-4 text-center text-sm ${responseMessage.includes('✅') ? 'text-green-400' : 'text-red-400'}`}>
                 {responseMessage}
               </p>
             )}
@@ -118,28 +120,44 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   placeholder="Enter your full name"
-                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400"
+                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400 focus:outline-none"
                 />
                 {nameError && (
                   <p className="text-red-400 text-sm mt-1">{nameError}</p>
                 )}
               </div>
 
-              {/* EMAIL */}
-              <div>
-                <label htmlFor="email" className="block mb-2 text-sm text-gray-300">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your email"
-                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400"
-                />
+              {/* EMAIL & PHONE GRID */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="email" className="block mb-2 text-sm text-gray-300">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your email"
+                    className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block mb-2 text-sm text-gray-300">
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Enter phone number"
+                    className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400 focus:outline-none"
+                  />
+                </div>
               </div>
 
               {/* MESSAGE */}
@@ -155,7 +173,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   placeholder="Write your message..."
-                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400 resize-none"
+                  className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-teal-400 resize-none focus:outline-none"
                 />
               </div>
 
@@ -163,7 +181,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-full font-semibold border-2 border-teal-400 hover:bg-teal-400 hover:text-black transition"
+                className="w-full py-4 rounded-full font-semibold border-2 border-teal-400 hover:bg-teal-400 hover:text-black transition-all duration-300 disabled:opacity-50"
               >
                 {loading ? "Sending..." : "Send Message"}
               </button>

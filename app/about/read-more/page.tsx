@@ -71,7 +71,7 @@ export default function ReadMore() {
     <div className="relative min-h-screen pt-28 text-white overflow-hidden">
 
       {/* Background */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
 
       <section className="container mx-auto px-6 md:px-16 py-20">
 
@@ -119,7 +119,12 @@ export default function ReadMore() {
               {/* Social Icons */}
               <div className="flex justify-center gap-5 mb-5">
                 
-                <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={member.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${member.name}'s LinkedIn profile`}
+                >
                   <Image
                     src="/images/linkedIn.png"
                     alt="linkedin"
@@ -129,7 +134,12 @@ export default function ReadMore() {
                   />
                 </a>
 
-                <a href={member.whatsapp} target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={member.whatsapp} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label={`Contact ${member.name} on WhatsApp`}
+                >
                   <Image
                     src="/images/whatsapp.png"
                     alt="whatsapp"
@@ -198,7 +208,12 @@ export default function ReadMore() {
                 {/* Social Icons */}
                 <div className="flex justify-center gap-5 mb-5">
                   
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                  <a 
+                    href={member.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${member.name}'s LinkedIn profile`}
+                  >
                     <Image
                       src="/images/linkedIn.png"
                       alt="linkedin"
@@ -208,7 +223,12 @@ export default function ReadMore() {
                     />
                   </a>
 
-                  <a href={member.whatsapp} target="_blank" rel="noopener noreferrer">
+                  <a 
+                    href={member.whatsapp} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={`Contact ${member.name} on WhatsApp`}
+                  >
                     <Image
                       src="/images/whatsapp.png"
                       alt="whatsapp"

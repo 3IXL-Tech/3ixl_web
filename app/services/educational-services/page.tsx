@@ -72,17 +72,17 @@ export default function EducationalServices() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
 
   return (
     <div className="relative min-h-screen pt-28 text-white overflow-hidden">
       
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-[#020617] via-[#031525] to-[#041c2e]" />
       <div className="absolute inset-0 -z-10 opacity-20">
         <Image src="/images/bg.png" alt="bg" fill className="object-cover" />
       </div>
 
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
+      <div className="absolute -left-40 top-40 w-125 h-125 bg-teal-500 opacity-20 blur-[150px] rounded-full"></div>
 
       <section className="relative z-10 container mx-auto px-6 md:px-16 py-20">
         <div className="grid md:grid-cols-2 gap-20 items-center">
@@ -99,7 +99,7 @@ export default function EducationalServices() {
               transition={{ type: "spring", stiffness: 200 }}
               className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-3xl hover:border-teal-400 hover:shadow-[0_0_40px_rgba(45,212,191,0.3)] transition-all duration-300"
             >
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+              <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
