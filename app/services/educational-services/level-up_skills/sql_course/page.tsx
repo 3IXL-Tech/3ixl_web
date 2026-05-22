@@ -173,11 +173,11 @@ export default function SQLCoursePage() {
             </h3>
 
             <ul className="space-y-4 text-gray-300 mb-8">
-              <li>• Pay 50% of the course fee upfront</li>
+              <li>• Pay 25% of the course fee upfront</li>
               <li>• Access first phase of learning materials</li>
               <li>• Remaining balance split into installments</li>
             </ul>
-
+            <h4> Price: <b>GH₵100.00</b></h4>
             <button className="px-6 py-3 rounded-full border border-teal-400 
             text-white hover:bg-teal-500 hover:text-black transition duration-300" onClick={() => window.open("https://paystack.shop/pay/8pr-ykvk4n", "_blank")}>
               Enroll Now
@@ -200,7 +200,7 @@ export default function SQLCoursePage() {
               <li>• Unlock all course materials instantly</li>
               <li>• Learn at your own pace</li>
             </ul>
-
+            <h4> Price: <b>GH₵400.00</b></h4>
             <button className="px-6 py-3 rounded-full border border-teal-400 
             text-white hover:bg-teal-500 hover:text-black transition duration-300" onClick={() => window.open("https://paystack.shop/pay/57h77nmdb0", "_blank")}>
               Enroll Now
