@@ -23,7 +23,7 @@ const team = [
   {
     name: "David Kwesi Sam",
     role: "FULL STACK DEVELOPER",
-    image: "/images/david2.png",
+    image: "/images/me.PNG",
     email: "dsam5@3ixl.com",
     linkedin: "https://www.linkedin.com/in/david-kwesi-sam/",
     whatsapp: "https://wa.me/233207132997",
